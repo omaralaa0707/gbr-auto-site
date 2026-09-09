@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   GBR AUTO — New Cairo. District 90 Mall, North Teseen.
+   Palette measured from the only real photograph they ever published: a night
+   view of their own frontage, sitting INSIDE their Eid greeting artwork.
+   Warm amber uplighting on sandy stone; a red glow behind the showroom glass.
+   =========================================================================== */
+
+@theme {
+  /* --- the forecourt ------------------------------------------------------ */
+  --color-ground:   #4E463A; /* their lit forecourt stone, L*≈36 — warm olive-khaki */
+  --color-ground-2: #443D33; /* alternate band */
+  --color-ink:      #F2ECE2; /* primary text on the olive ground */
+  --color-muted:    #C9BFAF; /* AA on --ground; never go darker */
+  --color-panel:    #16150F; /* deep panel / canvas ground */
+  --color-panel-2:  #211E16;
+  --color-amber:    #C99A62; /* the sign and the step-lights ONLY — never a large surface */
+  --color-red:      #8E3B2E; /* the glow inside their showroom glass — rare, tiny */
+
+  /* --- type ---------------------------------------------------------------
+     The layout re-declares these via next/font; the var() fallbacks keep the
+     page correct whichever name the font loader lands on. */
+  --font-display:    var(--font-khand, "Khand"), "Oswald", Impact, sans-serif;
+  --font-text:       var(--font-rethink, "Rethink Sans"), ui-sans-serif, system-ui, "Helvetica Neue", sans-serif;
+  --font-ar-display: var(--font-rakkas, "Rakkas"), "Aref Ruqaa", "Noto Naskh Arabic", serif;
+  --font-ar:         var(--font-almarai, "Almarai"), "Noto Kufi Arabic", "Segoe UI", sans-serif;
+}
+
+/* ============================ base ======================================== */
+
+html {
+  scroll-behavior: auto; /* Lenis drives scrolling */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-text);
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+::selection { background: var(--color-amber); color: var(--color-panel); }
+
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img, video, canvas { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+
+/* ============================ utilities ===================================
+   In @layer components so Tailwind utilities can still override them.
+   .latin is deliberately UNLAYERED further down — it must never lose.
+   ========================================================================= */
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .fine {
+    font-family: var(--font-text);
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.36em 0.78em;
+    border: 1px solid color-mix(in oklab, currentColor 32%, transparent);
+    border-radius: 999px;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .rule {
+    display: block;
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background: currentColor;
+    opacity: 0.2;
+  }
+
+  /* the illuminated sign over the entrance, flattened to a hairline */
+  .plate {
+    display: block;
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in oklab, var(--color-amber) 45%, transparent) 14%,
+      var(--color-amber) 50%,
+      color-mix(in oklab, var(--color-amber) 45%, transparent) 86%,
+      transparent 100%
+    );
+  }
+}
+
+/* ============================ RTL — OUTSIDE any @layer ====================
+   Keyed off [dir="rtl"], never [lang]. Unlayered so it beats Tailwind.
+   ========================================================================= */
+
+/* CRITICAL: wraps every Latin/numeric fragment inside Arabic copy. A bare
+   digit run between an Arabic label and a Latin unit reorders itself in RTL. */
+.latin {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+html[dir="rtl"] body {
+  font-family: var(--font-ar);
+  font-weight: 400;
+  line-height: 1.9;
+}
+
+html[dir="rtl"] .display {
+  font-family: var(--font-ar-display);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.34;
+}
+
+[dir="rtl"] .fine {
+  font-family: var(--font-ar);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0;
+  line-height: 1.7;
+  text-transform: none;
+}
+
+[dir="rtl"] .chip {
+  font-family: var(--font-ar);
+  font-weight: 400;
+  font-size: 12.5px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+[dir="rtl"] p,
+[dir="rtl"] li,
+[dir="rtl"] dd,
+[dir="rtl"] dt { line-height: 1.95; }
+
+[dir="rtl"] .latin { font-family: var(--font-text); }
+
+/* ============================ "the register" ==============================
+   Content arrives OUT OF REGISTER and snaps back onto its guides, like a
+   misprinted plate being re-seated. No blur, no opacity-only fade.
+   [data-reg]      observed by IntersectionObserver, gains [data-seen]
+   [data-reg-item] carries --rx and --ry (deterministic, set by section code)
+   NEVER animate clip-path on [data-reg]: it collapses the intersect rect.
+   ========================================================================= */
+
+[data-reg] [data-reg-item] {
+  opacity: 0;
+  transform: translate3d(var(--rx, -6px), var(--ry, 8px), 0);
+}
+
+[data-reg][data-seen] [data-reg-item] {
+  will-change: transform, opacity;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  /* hard, fast snap onto the guides; opacity ramps shorter than the travel */
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 180ms linear;
+  transition-delay: calc(var(--reg-i, 0) * 55ms);
+}
+
+/* JS off — the layout ships <noscript><style> adding .no-js to <html> */
+.no-js [data-reg-item],
+.no-js [data-reg] [data-reg-item] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reg] [data-reg-item],
+  [data-reg][data-seen] [data-reg-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Latin figures set inside a display heading keep the Latin display face in
+   both locales. Without this the page's headline numbers — 62 against 0, the
+   whole thesis — drop to the text face under RTL and lose their weight. */
+[dir="rtl"] .display .latin {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
