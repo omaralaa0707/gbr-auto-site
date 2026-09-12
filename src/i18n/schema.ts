@@ -42,6 +42,8 @@ export type SiteContent = {
     sub: string;
     primaryCta: string;
     secondaryCta: string;
+    /** Alt text for the hero image, where the hero carries one. */
+    imageAlt?: string;
   };
   about: {
     heading: string;
@@ -73,8 +75,6 @@ export type SiteContent = {
     cta: string;
   };
   footer: {
-    /** Bilingual disclaimer: these are concept sites, not official ones. */
-    disclaimer: string;
     rights: string;
   };
   a11y: {

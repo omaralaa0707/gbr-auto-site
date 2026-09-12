@@ -37,7 +37,7 @@ const almarai = Almarai({
 export const metadata: Metadata = {
   title: "GBR Auto — New Cairo",
   description:
-    "Instagram states 62 posts and opens none of them. A concept page built from the nine images, one caption and one car name that GBR Auto has actually published.",
+    "GBR Auto — Mercedes-Benz and premium cars at District 90 Mall, New Cairo. Visit the showroom or call sales.",
 };
 
 export default function RootLayout({
@@ -49,18 +49,17 @@ export default function RootLayout({
     <html
       lang="en"
       dir="ltr"
-      // Chrome's auto-translate garbles the Arabic quoted verbatim from the
-      // dealer's own artwork, so the page opts out of it wholesale.
+      // Chrome's auto-translate fights with the manual locale toggle, so the
+      // page opts out of it wholesale.
       translate="no"
       className={`${khand.variable} ${rethink.variable} ${rakkas.variable} ${almarai.variable} h-full antialiased`}
     >
       <head>
         {/* Without scripting there is no observer to fire, so the arrival is
-            switched off rather than leaving every block invisible. */}
+            switched off rather than leaving every section invisible. */}
         <noscript>
           <style>{`
-            [data-reg] [data-reg-item],
-            [data-reg-item] {
+            [data-reveal] {
               opacity: 1 !important;
               transform: none !important;
               transition: none !important;
